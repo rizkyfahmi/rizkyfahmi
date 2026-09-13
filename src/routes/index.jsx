@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import portrait from "@/assets/portrait.jpg";
+import projectGeminiAi from "@/assets/project-gemini-ai.jpg";
+import projectCarRental from "@/assets/project-car-rental.jpg";
 import projectSaritoko from "@/assets/project-saritoko.jpg";
 import projectTaskDashboard from "@/assets/project-task-dashboard.jpg";
 import projectTaskApi from "@/assets/project-task-api.jpg";
@@ -27,7 +29,8 @@ import {
   MapPin,
   Menu,
   X,
-  Laptop
+  Laptop,
+  Bot
 } from "lucide-react";
 
 function GithubIcon({ className = "size-5" }) {
@@ -72,6 +75,40 @@ export const Route = createFileRoute("/")({
 
 const projectsData = [
   {
+    id: "gemini-chatbot",
+    category: "AI & Machine Learning",
+    title: "Gemini AI — Conversational Assistant",
+    subtitle: "Next-Gen AI Chatbot & Context Engine",
+    description:
+      "Aplikasi chatbot AI cerdas bertenaga Google Gemini GenAI SDK (@google/genai) dengan backend NestJS 11 modular dan antarmuka web interaktif React 19. Dilengkapi kapabilitas percakapan multi-turn real-time, rendering Markdown, serta streaming response.",
+    image: projectGeminiAi,
+    tags: ["NestJS", "@google/genai", "React 19", "TypeScript", "Vite", "AI Integration"],
+    features: [
+      "Integrasi resmi Google Gemini GenAI SDK untuk respons cerdas & dialog multi-turn",
+      "Arsitektur server NestJS modular dengan manajemen API key & CORS yang aman",
+      "Antarmuka chat modern dengan bubble chat responsif dan code syntax highlighting",
+    ],
+    github: "https://github.com/rizkyfahmi",
+    featured: true,
+  },
+  {
+    id: "autorent",
+    category: "Full Stack & Web",
+    title: "AutoRent — Car Rental Booking App",
+    subtitle: "Full Stack Fleet & Online Reservation System",
+    description:
+      "Aplikasi web full stack pemesanan dan penyewaan kendaraan dengan antarmuka interaktif React 19 + Tailwind CSS dan backend REST API Express.js. Dilengkapi katalog armada, filter tipe mobil, kalkulator sewa otomatis, serta animasi responsif.",
+    image: projectCarRental,
+    tags: ["React 19", "Node.js", "Express.js", "Tailwind CSS v4", "REST API", "Motion"],
+    features: [
+      "Katalog armada interaktif dengan filter tipe, kapasitas, harga, & ketersediaan",
+      "Kalkulator tarif sewa dinamis dengan alur checkout reservasi terstruktur",
+      "Arsitektur client-server terpisah (React 19 SPA + Express REST API Backend)",
+    ],
+    github: "https://github.com/rizkyfahmi",
+    featured: true,
+  },
+  {
     id: "nest-ecommerce",
     category: "Full Stack & Web",
     title: "NestCommerce — E-Commerce & Support Ticket",
@@ -85,7 +122,8 @@ const projectsData = [
       "Proteksi endpoint dengan Passport JWT Strategy, bcrypt hashing, dan DTO Class Validator",
       "Integrasi Prisma ORM, file upload Multer, dan dokumentasi interaktif Swagger / OpenAPI",
     ],
-    github: "https://github.com/rizkyfahmi",
+    github: "https://github.com/rizkyfahmi/E-Commerce",
+    demo: "https://e-commerce-six-theta-63.vercel.app",
     featured: true,
   },
   {
@@ -102,8 +140,8 @@ const projectsData = [
       "Integrasi API client Axios ke backend NestJS dengan filter status task",
       "Desain modern responsif dengan Tailwind CSS v4 & sistem notifikasi yang intuitif",
     ],
-    github: "https://github.com/rizkyfahmi",
-    featured: true,
+    github: "https://github.com/rizkyfahmi/task-management",
+    featured: false,
   },
   {
     id: "task-app",
@@ -120,7 +158,7 @@ const projectsData = [
       "Arsitektur scalable berstandar NestJS enterprise & alur interaksi API yang rapi",
     ],
     github: "https://github.com/rizkyfahmi",
-    featured: true,
+    featured: false,
   },
 ];
 
@@ -226,7 +264,7 @@ function Index() {
   const [copied, setCopied] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const filterCategories = ["Semua", "Full Stack & Web", "Backend & REST API"];
+  const filterCategories = ["Semua", "Full Stack & Web", "AI & Machine Learning", "Backend & REST API"];
 
   const filteredProjects =
     activeFilter === "Semua"
@@ -705,12 +743,12 @@ function Index() {
                       <span>Lihat Kode</span>
                     </a>
                     <a
-                      href={project.github}
+                      href={project.demo || project.github}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 text-xs font-bold text-sky-400 hover:text-sky-300 transition-colors group-hover:translate-x-0.5"
                     >
-                      <span>Detail Proyek</span>
+                      <span>{project.demo ? "Live Demo" : "Detail Proyek"}</span>
                       <ArrowUpRight className="size-3.5" />
                     </a>
                   </div>
