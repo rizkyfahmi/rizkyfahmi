@@ -45,6 +45,15 @@ function GithubIcon({ className = "size-5" }) {
   );
 }
 
+function VercelIcon({ className = "size-3.5" }) {
+  return (
+    <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 1L24 22H0L12 1Z" />
+    </svg>
+  );
+}
+
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -88,7 +97,8 @@ const projectsData = [
       "Arsitektur server NestJS modular dengan manajemen API key & CORS yang aman",
       "Antarmuka chat modern dengan bubble chat responsif dan code syntax highlighting",
     ],
-    github: "https://github.com/rizkyfahmi",
+    github: "https://github.com/rizkyfahmi/gemini-chatbot",
+    demo: "https://gemini-chatbot-nu-rose.vercel.app",
     featured: true,
   },
   {
@@ -105,7 +115,8 @@ const projectsData = [
       "Kalkulator tarif sewa dinamis dengan alur checkout reservasi terstruktur",
       "Arsitektur client-server terpisah (React 19 SPA + Express REST API Backend)",
     ],
-    github: "https://github.com/rizkyfahmi",
+    github: "https://github.com/rizkyfahmi/Rental-Booking-App",
+    demo: "https://rental-booking-app-eta.vercel.app",
     featured: true,
   },
   {
@@ -123,7 +134,7 @@ const projectsData = [
       "Integrasi Prisma ORM, file upload Multer, dan dokumentasi interaktif Swagger / OpenAPI",
     ],
     github: "https://github.com/rizkyfahmi/E-Commerce",
-    demo: "https://e-commerce-six-theta-63.vercel.app",
+    demo: "https://e-commerce-delta-bay-84.vercel.app",
     featured: true,
   },
   {
@@ -141,6 +152,7 @@ const projectsData = [
       "Desain modern responsif dengan Tailwind CSS v4 & sistem notifikasi yang intuitif",
     ],
     github: "https://github.com/rizkyfahmi/task-management",
+    demo: "https://task-management-beta-drab.vercel.app",
     featured: false,
   },
   {
@@ -157,7 +169,8 @@ const projectsData = [
       "Koneksi database terstruktur dan efisien dengan Prisma ORM Client",
       "Arsitektur scalable berstandar NestJS enterprise & alur interaksi API yang rapi",
     ],
-    github: "https://github.com/rizkyfahmi",
+    github: "https://github.com/rizkyfahmi/task-app",
+    demo: "https://task-app-beta-one.vercel.app",
     featured: false,
   },
 ];
@@ -668,7 +681,12 @@ function Index() {
               >
                 <div>
                   {/* Project Image Frame */}
-                  <div className="relative aspect-[16/10] overflow-hidden bg-slate-950">
+                  <a
+                    href={project.demo || project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative block aspect-[16/10] overflow-hidden bg-slate-950 cursor-pointer"
+                  >
                     <img
                       src={project.image}
                       alt={project.title}
@@ -693,16 +711,23 @@ function Index() {
                         </span>
                       </div>
                     )}
-                  </div>
+                  </a>
 
                   {/* Project Details */}
                   <div className="p-5">
                     <p className="text-xs font-semibold text-slate-400">
                       {project.subtitle}
                     </p>
-                    <h3 className="mt-1 font-display text-xl font-bold text-white group-hover:text-sky-300 transition-colors">
-                      {project.title}
-                    </h3>
+                    <a
+                      href={project.demo || project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block mt-1"
+                    >
+                      <h3 className="font-display text-xl font-bold text-white group-hover:text-sky-300 transition-colors">
+                        {project.title}
+                      </h3>
+                    </a>
                     <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-slate-300 line-clamp-3">
                       {project.description}
                     </p>
@@ -732,25 +757,30 @@ function Index() {
                     ))}
                   </div>
 
-                  <div className="flex items-center justify-between pt-3 border-t border-slate-800">
+                  <div className="flex items-center justify-between pt-3 border-t border-slate-800 gap-2">
                     <a
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-300 hover:text-white transition-colors"
+                      className="inline-flex items-center gap-1.5 rounded-lg bg-slate-800/60 px-3 py-1.5 text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-700/60 transition-all"
+                      title="Buka Repositori GitHub"
                     >
                       <GithubIcon className="size-3.5" />
-                      <span>Lihat Kode</span>
+                      <span>GitHub</span>
                     </a>
-                    <a
-                      href={project.demo || project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-xs font-bold text-sky-400 hover:text-sky-300 transition-colors group-hover:translate-x-0.5"
-                    >
-                      <span>{project.demo ? "Live Demo" : "Detail Proyek"}</span>
-                      <ArrowUpRight className="size-3.5" />
-                    </a>
+                    {project.demo && (
+                      <a
+                        href={project.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600/20 px-3 py-1.5 text-xs font-bold text-sky-400 hover:bg-blue-600 hover:text-white border border-blue-500/30 transition-all group-hover:shadow-md group-hover:shadow-blue-500/20"
+                        title="Buka Live Demo Hosting Vercel"
+                      >
+                        <VercelIcon className="size-3" />
+                        <span>Live Demo (Vercel)</span>
+                        <ArrowUpRight className="size-3.5" />
+                      </a>
+                    )}
                   </div>
                 </div>
               </article>
